@@ -1,3 +1,4 @@
+
 val `scala 212` = "2.12.6"
 
 val sharedOptions = Seq(
@@ -52,5 +53,9 @@ val root = project
       "ch.qos.logback"   % "logback-classic"          % versionOf.`logback-classic`,
       "io.confluent"     % "kafka-streams-avro-serde" % versionOf.confluent,
     ),
-    addCommandAlias("format", ";scalafmt;test:scalafmt;scalafmtSbt")
+    addCommandAlias("format", ";scalafmt;test:scalafmt;scalafmtSbt"),
+    assemblyMergeStrategy in assembly := {
+      case PathList("META-INF", _ @_*) => MergeStrategy.discard
+      case _                           => MergeStrategy.first
+    }
   )
